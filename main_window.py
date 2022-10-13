@@ -73,7 +73,7 @@ class MainWindow(wx.Frame):
     """
     def __init__(self, config):
         # Konstruktor
-        super().__init__(parent=None, title='Badziewny Program',size=(900,400))
+        super().__init__(parent=None, title='Sensys Program',size=(900,400))
         self.panel = wx.Panel(self)
         self.SetSize(wx.Size(900, 600))
         #Konfiguracja
@@ -223,7 +223,7 @@ class MainWindow(wx.Frame):
                 try:
                     if(len(self.plot_axis_values["X"])>10 and sum(self.plot_draw.values())>0):
                         dpi = 96
-                        if(i==0):figure = Figure(figsize=(600/dpi,400/dpi),label='Sensys odczyty', dpi=dpi)
+                        if(i==0):figure = Figure(figsize=(600/dpi,400/dpi), dpi=dpi)
                         else: figure.clear()
                         axes = figure.add_subplot(111)
                         i=1
@@ -336,7 +336,7 @@ class MainWindow(wx.Frame):
         """
         Metoda wysylająca polecenie do urzadzenia.
         """
-        self.send_message(self.txt_write_comand.Value)
+        self.sensys.send_message(self.txt_write_comand.Value)
 
     def btn_stop_data_on_click(self, event):
         """
@@ -393,7 +393,6 @@ class MainWindow(wx.Frame):
     def toggle_drawing_csv(self,event):
         """
         Metoda sterująca rysowaniem wykresów po skończonych pomiarach.
-
         """
         if(self.draw_plot_after_creating_csv):
             self.draw_plot_after_creating_csv = False

@@ -7,11 +7,17 @@ Created on Tue Jul 26 08:22:15 2022
 """
 
 import wx
-from main_window import MainWindow
+# from main_window import MainWindow
 from sensys_config import sensys_config
+from PyQt5 import QtWidgets
+from main_window2 import MainWidnow
+import sys
 
 if __name__ == '__main__':
     config = sensys_config(1)
-    app = wx.App()
-    main_window = MainWindow(config)
-    app.MainLoop()
+    # app = wx.App()
+    # main_window = MainWindow(config)
+    # app.MainLoop()
+    app = QtWidgets.QApplication(sys.argv)
+    window = MainWidnow(config)
+    app.exec_()

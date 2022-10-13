@@ -169,6 +169,26 @@ def draw_plot_from_csv(file, axis):
     plt.legend().set_visible(True)
     plt.show()
 
+def draw_plots_from_csv(file, axiss):
+    """
+    Funkcja rysująca wykres z danych pobranych z pliku.
+
+    Parameters
+    ----------
+    file : str
+        Scieżka do pliku.
+    axis : str
+        Skladowa do narysowania.
+
+    """
+    df = pd.read_csv(file)
+    for axis in axiss:
+        plt.figure(figsize=(10,5), dpi=100)
+        plt.plot(df[axis],'-', label=axis)
+        plt.title(file)
+        plt.legend().set_visible(True)
+        plt.show()
+
 class sensys_fgm3d_uwd:
     """
     Klasa przechowująca dane do podłączenia oraz metody do zarządzania komunikacją.    
@@ -284,7 +304,7 @@ class sensys_fgm3d_uwd:
         #Sprawdz czy polaczenie jest ustanowione
         self.check_conection()
         #Pobierz wszystkie dane z buforu
-        data_from_sensys = self.conection.read_all().decode('utf-8').rstrip().replace('\x00','')
+        data_from_sensys = self.conection.read_all().decode('utf-8', errors='ignore').rstrip().replace('\x00','')
         #Dodaj na poczatek wiadomosci poprzedni niekompletny pomiar
         data_from_sensys = self.last_message + data_from_sensys
         #Rozdiel pomiary na tablice
